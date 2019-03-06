@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Start your project here-->
+  <div style="height: 40vh">
+    <div class="flex-center flex-column">
+
+      <h1><img src="./logo.png" width="390"></h1>
+      <h5 class="animated fadeIn mb-3">fi khater 10X Vitess.</h5>
+
+   
+    </div>
+  </div>
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-6">
+        <div class="md-form">
+            <input type="text" id="idhost" class="form-control">
+            <label for="form1">Host : </label>
+          </div>
+    </div>
+  
+    <div class="col-md-6">
+        <div class="md-form">
+            <input type="text" id="idport" class="form-control">
+            <label for="form1">Port : </label>
+          </div>
+    </div>
+    <div class="col-md-6">
+        <div class="md-form">
+            <input type="text" id="idpassword" class="form-control">
+            <label for="form1">password : </label>
+          </div>
+    </div>
+    </div>
+<br>
+
+<div class='row'>
+    <div class="col-md-6">
+        <span>SSL :</span>
+        <select class="browser-default custom-select custom-select-lg mb-3" id="idssl">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+
+</div>
+
+<div class="col-md-6">
+    <span>TLS :</span>
+    <select class="browser-default custom-select custom-select-lg mb-3" id="idtls">
+        <option value="True">True</option>
+        <option value="False">False</option>
+    </select>
+
+</div>
+
+</div>
+<br> <br>
+  <div class="row">
+   <div class="col-md-6">
+            <div class="form-group">
+          <label for="exampleFormControlTextarea1"><b>Login DATA</b></label>
+          <textarea class="form-control rounded-0" id="logindata" rows="15"></textarea>
+        </div>
+  </div>
+    <div class="col-md-6">
+          <div class="form-group">
+    <label for="exampleFormControlTextarea1"><b>JSON DATA</b></label>
+    <textarea class="form-control rounded-0" id="jsondata" rows="15"></textarea>
+  </div>
+  
+    </div>
+    <button type="button" id="converme" class="btn btn-primary">Convert</button>
+  </div>
+
+
+
+  </div>
+  <br> <br><br> <br><br> <br><br> <br>
+
+
+  <!-- /Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.js"></script>
+  <script>
+   $(document).ready(function(){ 
+  $('#converme').click(function(){ 
+    
+
+    var json_to = [];
+    var idpwd = $('#idpassword').val();
+    var host = $('#idhost').val();
+    var idport = $('#idport').val();
+    var ssl = $('#idssl').val();
+    var tls = $('#idtls').val();
+    var login_data = $('#logindata').val().split('\n');;
+    
+    for (i = 0; i < login_data.length; i++) { 
+    dict = {};
+    dict['host'] = host;
+    dict['port'] = parseInt(idport);
+    dict['ssl'] = ssl;
+    dict['tls'] = tls;
+    if (idpwd.length < 2){
+    login = login_data[i].split(':')[0];
+    pwd = login_data[i].split(':')[1];
+    }
+    else{
+      login = login_data[i].trim();
+      pwd = idpwd;
+    }
+    
+    dict['username'] = login;
+    dict['password'] = pwd;
+    json_to.push(dict);
+    }
+
+    json_result = JSON.stringify(json_to);
+    
+    $('#jsondata').val(json_result);
+
+    alert(login_data.length);
+
+
+
+
+  });
+});
+    </script>
+</body>
+
+</html>
